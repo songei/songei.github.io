@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="spring boot," />
 
 
 
@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="title: Spring boot实现定时备份远程mysql数据库 date: 2017-12-03 20:53:38     tags: spring boot个人环境 Windows10     mysql 已配置环境变量（将mysql的bin目录添加至环境变量）        阿里云mysql 开启开放远程连接">
+<meta name="description" content="个人环境 Windows10     mysql 已配置环境变量（将mysql的bin目录添加至环境变量）        阿里云mysql 开启开放远程连接权限 （参考：mysql5.7.20开放远程数据库连接）       定义数据库辅助类存放所需信息     1234567891011121314151617pub">
+<meta name="keywords" content="spring boot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SongWei">
-<meta property="og:url" content="http://songwei.site/2017/12/04/databaseBackup/index.html">
+<meta property="og:title" content="Spring Boot备份远程阿里云mysql数据库">
+<meta property="og:url" content="http://songwei.site/2017/12/03/databaseBackup/index.html">
 <meta property="og:site_name" content="SongWei">
-<meta property="og:description" content="title: Spring boot实现定时备份远程mysql数据库 date: 2017-12-03 20:53:38     tags: spring boot个人环境 Windows10     mysql 已配置环境变量（将mysql的bin目录添加至环境变量）        阿里云mysql 开启开放远程连接权限 （参考：mysql5.7.20开放远程数据库连接）       定义数据">
-<meta property="og:updated_time" content="2017-12-04T03:28:58.933Z">
+<meta property="og:description" content="个人环境 Windows10     mysql 已配置环境变量（将mysql的bin目录添加至环境变量）        阿里云mysql 开启开放远程连接权限 （参考：mysql5.7.20开放远程数据库连接）       定义数据库辅助类存放所需信息     1234567891011121314151617public class DatabaseBackUtil &amp;#123;	 /**">
+<meta property="og:updated_time" content="2017-12-04T03:32:25.760Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SongWei">
-<meta name="twitter:description" content="title: Spring boot实现定时备份远程mysql数据库 date: 2017-12-03 20:53:38     tags: spring boot个人环境 Windows10     mysql 已配置环境变量（将mysql的bin目录添加至环境变量）        阿里云mysql 开启开放远程连接权限 （参考：mysql5.7.20开放远程数据库连接）       定义数据">
+<meta name="twitter:title" content="Spring Boot备份远程阿里云mysql数据库">
+<meta name="twitter:description" content="个人环境 Windows10     mysql 已配置环境变量（将mysql的bin目录添加至环境变量）        阿里云mysql 开启开放远程连接权限 （参考：mysql5.7.20开放远程数据库连接）       定义数据库辅助类存放所需信息     1234567891011121314151617public class DatabaseBackUtil &amp;#123;	 /**">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://songwei.site/2017/12/04/databaseBackup/"/>
+  <link rel="canonical" href="http://songwei.site/2017/12/03/databaseBackup/"/>
 
 
 
 
 
-  <title> | SongWei</title>
+  <title>Spring Boot备份远程阿里云mysql数据库 | SongWei</title>
   
 
 
@@ -231,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/04/databaseBackup/">
+    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/03/databaseBackup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Wei">
@@ -248,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Spring Boot备份远程阿里云mysql数据库</h1>
         
 
         <div class="post-meta">
@@ -260,8 +261,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-04T11:28:58+08:00">
-                2017-12-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-03T20:53:38+08:00">
+                2017-12-03
               </time>
             
 
@@ -298,10 +299,7 @@
       
 
       
-        <hr>
-<p>title: Spring boot实现定时备份远程mysql数据库</p>
-<p>date: 2017-12-03 20:53:38    </p>
-<h2 id="tags-spring-boot"><a href="#tags-spring-boot" class="headerlink" title="tags: spring boot"></a>tags: spring boot</h2><h2 id="个人环境"><a href="#个人环境" class="headerlink" title="个人环境"></a>个人环境</h2><ul>
+        <h2 id="个人环境"><a href="#个人环境" class="headerlink" title="个人环境"></a>个人环境</h2><ul>
 <li>Windows10    </li>
 <li>mysql 已配置环境变量（将mysql的bin目录添加至环境变量）       </li>
 <li>阿里云mysql 开启开放远程连接权限 （参考：<a href="http://www.songwei.site" target="_blank" rel="noopener">mysql5.7.20开放远程数据库连接</a>）    </li>
@@ -454,6 +452,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+          
+        </div>
+      
 
       
       
@@ -596,7 +600,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tags-spring-boot"><span class="nav-number">1.</span> <span class="nav-text">tags: spring boot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人环境"><span class="nav-number">2.</span> <span class="nav-text">个人环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql详细参数"><span class="nav-number">2.1.</span> <span class="nav-text">mysql详细参数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人环境"><span class="nav-number">1.</span> <span class="nav-text">个人环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql详细参数"><span class="nav-number">1.1.</span> <span class="nav-text">mysql详细参数</span></a></li></ol></li></ol></div>
             
 
           </div>
