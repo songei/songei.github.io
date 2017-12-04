@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Spring Boot备份远程阿里云mysql数据库]]></title>
+      <url>/2017/12/03/databaseBackup/</url>
+      <content type="html"><![CDATA[<hr>
+<h2 id="个人环境"><a href="#个人环境" class="headerlink" title="个人环境"></a>个人环境</h2><ul>
+<li>Windows10    </li>
+<li>mysql 已配置环境变量（将mysql的bin目录添加至环境变量）       </li>
+<li>阿里云mysql 开启开放远程连接权限 （参考：<a href="http://www.songwei.site" target="_blank" rel="noopener">mysql5.7.20开放远程数据库连接</a>）    </li>
+</ul>
+<ol>
+<li>定义数据库辅助类存放所需信息   </li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackUtil</span> </span>&#123;</span><br><span class="line">	 <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据库备份的部分命令参数</span></span><br><span class="line"><span class="comment">     * mysqldump 数据库备份命令</span></span><br><span class="line"><span class="comment">     * h 主机地址可以本地或者远端</span></span><br><span class="line"><span class="comment">     * P 端口3306</span></span><br><span class="line"><span class="comment">     * u 用户名</span></span><br><span class="line"><span class="comment">     * p 密码</span></span><br><span class="line"><span class="comment">     * 字符集编码</span></span><br><span class="line"><span class="comment">     * 最后 数据库名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String BACKUP_COMMAND = <span class="string">"mysqldump -h远程或本地数据库地址 -P3306 -u用户 -p密码 --default-character-set=utf8 数据库名"</span>;</span><br><span class="line">	<span class="comment">//数据库恢复部分命令参数</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String RECOVER_COMMAND=<span class="string">"mysql -h远程或本地数据库地址 -P3306 -u用户 -p密码 --default-character-set=utf8 shop"</span>;</span><br><span class="line">	<span class="comment">//数据库备份的地址</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String BACKUP_PATH = <span class="string">"D://back.mysql"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>定义数据库备份恢复服务类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>    </span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackupService</span></span>&#123;  </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//备份函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">backup</span><span class="params">()</span></span>&#123;    </span><br><span class="line">		<span class="comment">//定义所需输入流输出流</span></span><br><span class="line">		StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">		InputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line">		InputStreamReader inputStreamReader = <span class="keyword">null</span>;</span><br><span class="line">		BufferedReader bufferedReader = <span class="keyword">null</span>;</span><br><span class="line">		FileOutputStream fileOutputStream = <span class="keyword">null</span>;</span><br><span class="line">		OutputStreamWriter outputStreamWriter = <span class="keyword">null</span>;</span><br><span class="line">           </span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">          Runtime runtime = Runtime.getRuntime();</span><br><span class="line">          <span class="comment">//执行命令行命令</span></span><br><span class="line">          Process process = runtime.exec(DatabaseBackUtil.BACKUP_COMMAND);</span><br><span class="line">          <span class="comment">//获取输入流</span></span><br><span class="line">          inputStream = process.getInputStream();</span><br><span class="line">          inputStreamReader = <span class="keyword">new</span> InputStreamReader(inputStream,<span class="string">"utf8"</span>);</span><br><span class="line">          bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line">          <span class="comment">//写入到buffer中</span></span><br><span class="line">          <span class="keyword">while</span> ((s=bufferedReader.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">          	stringBuffer.append(s+<span class="string">"\r\n"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//写入到SQL文件中</span></span><br><span class="line">          File file = <span class="keyword">new</span> File(DatabaseBackUtil.BACKUP_PATH);</span><br><span class="line">          <span class="comment">//设置fileOutputStream参数false,即每次写入覆盖掉到之前的备份</span></span><br><span class="line">          fileOutputStream = <span class="keyword">new</span> FileOutputStream(BACKUP_PATH,<span class="keyword">false</span>);</span><br><span class="line">          <span class="comment">//为防止乱码 设置outputStreamWriter为utf8</span></span><br><span class="line">          outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(fileOutputStream,<span class="string">"utf8"</span>);</span><br><span class="line">          outputStreamWriter.write(stringBuffer.toString());</span><br><span class="line">          outputStreamWriter.flush();</span><br><span class="line">      &#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">          <span class="comment">//如果获取失败 返回-1</span></span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">            	   <span class="comment">//关闭各种流</span></span><br><span class="line">                fileOutputStream.close();</span><br><span class="line">                bufferedReader.close();</span><br><span class="line">                inputStreamReader.close();</span><br><span class="line">                inputStream.close();</span><br><span class="line">                <span class="comment">//如果成功，返回0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//恢复备份函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">recover</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//各种流</span></span><br><span class="line">        OutputStream outputStream = <span class="keyword">null</span>;</span><br><span class="line">        StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        InputStreamReader inputStreamReader = <span class="keyword">null</span>;</span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">null</span>;</span><br><span class="line">        FileInputStream fileInputStream = <span class="keyword">null</span>;</span><br><span class="line">        OutputStreamWriter outputStreamWriter = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        	  Runtime runtime = Runtime.getRuntime();</span><br><span class="line">            Process process = runtime.exec(DatabaseBackUtil.RECOVER_COMMAND);</span><br><span class="line"></span><br><span class="line">            outputStream = process.getOutputStream();</span><br><span class="line">            fileInputStream = <span class="keyword">new</span> FileInputStream(DatabasePath.BACKUP_PATH);</span><br><span class="line">            inputStreamReader = <span class="keyword">new</span> InputStreamReader(fileInputStream);</span><br><span class="line">            bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line"></span><br><span class="line">            stringBuffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">            <span class="keyword">while</span> ((s=bufferedReader.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                stringBuffer.append(s+<span class="string">"\r\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(outputStream,<span class="string">"utf8"</span>);</span><br><span class="line">            outputStreamWriter.write(stringBuffer.toString());</span><br><span class="line">            outputStreamWriter.flush();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                outputStreamWriter.close();</span><br><span class="line">                bufferedReader.close();</span><br><span class="line">                inputStreamReader.close();</span><br><span class="line">                fileInputStream.close();</span><br><span class="line">                outputStream.close();</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125; </span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. 定义数据库定时类</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackupScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(DatabaseBackupScheduler.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Description: 每天3点备份一次&lt;/p &gt;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@exception</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0 0 3 * * ?"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">backupInSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        DatabaseBackupService.backup();</span><br><span class="line">        logger.info(<span class="string">"备份成功"</span>+<span class="keyword">new</span> Date().toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>开启多线程 （参考:<a href="http://www.songwei.site" target="_blank" rel="noopener">Spring Boot使用@Schedule注解开启定时任务</a>）</li>
+</ol>
+<h3 id="mysql详细参数"><a href="#mysql详细参数" class="headerlink" title="mysql详细参数"></a>mysql详细参数</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">含义   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">–user, -u</td>
+<td style="text-align:center">用户名  </td>
+</tr>
+<tr>
+<td style="text-align:center">–password, -p</td>
+<td style="text-align:center">数据库密码</td>
+</tr>
+<tr>
+<td style="text-align:center">–port, -P</td>
+<td style="text-align:center">数据库端口号</td>
+</tr>
+<tr>
+<td style="text-align:center">–default-character-set</td>
+<td style="text-align:center">默认字符集，默认值为utf8</td>
+</tr>
+<tr>
+<td style="text-align:center">–host, -h</td>
+<td style="text-align:center">主机地址</td>
+</tr>
+<tr>
+<td style="text-align:center">–databases, -B</td>
+<td style="text-align:center">导出数据库。可将多个数据库跟在参数后</td>
+</tr>
+<tr>
+<td style="text-align:center">–force</td>
+<td style="text-align:center">在导出过程中忽略出现的SQL错误</td>
+</tr>
+<tr>
+<td style="text-align:center">–events, -E</td>
+<td style="text-align:center">导出事件</td>
+</tr>
+<tr>
+<td style="text-align:center">–debug</td>
+<td style="text-align:center">输出debug信息，用于调试。默认值为：d:t:o,/tmp/mysqldump.trace</td>
+</tr>
+<tr>
+<td style="text-align:center">–debug-info</td>
+<td style="text-align:center">输出调试信息并退出</td>
+</tr>
+<tr>
+<td style="text-align:center">–flush-privileges</td>
+<td style="text-align:center">在导出mysql数据库之后，发FLUSH PRIVILEGES 语句</td>
+</tr>
+<tr>
+<td style="text-align:center">–no-data, -d</td>
+<td style="text-align:center">不导出任何数据，只导出数据库表结构</td>
+</tr>
+<tr>
+<td style="text-align:center">–no-create-info, -t</td>
+<td style="text-align:center">只导出数据，而不添加CREATE TABLE 语句</td>
+</tr>
+<tr>
+<td style="text-align:center">–no-create-db, -n</td>
+<td style="text-align:center">只导出数据，而不添加CREATE DATABASE 语句</td>
+</tr>
+<tr>
+<td style="text-align:center">–ignore-table</td>
+<td style="text-align:center">忽略导出指定表。指定忽略多个表时，需要重复多次，每次一个表，每个表必须同时指定数据库和表</td>
+</tr>
+<tr>
+<td style="text-align:center">–lock-tables, -l</td>
+<td style="text-align:center">开始导出前，锁定所有表</td>
+</tr>
+<tr>
+<td style="text-align:center">–all-databases , -A</td>
+<td style="text-align:center">导出全部数据库    </td>
+</tr>
+<tr>
+<td style="text-align:center">–all-tablespaces , -Y</td>
+<td style="text-align:center">导出全部表空间   </td>
+</tr>
+<tr>
+<td style="text-align:center">–no-tablespaces , -y</td>
+<td style="text-align:center">不导出任何表空间</td>
+</tr>
+<tr>
+<td style="text-align:center">–add-drop-database</td>
+<td style="text-align:center">数据库创建之前 添加drop数据库的语句</td>
+</tr>
+<tr>
+<td style="text-align:center">–add-drop-table</td>
+<td style="text-align:center">数据表创建之前 添加drop数据表的语句（可使用–skip-add-drop-table取消该选项）</td>
+</tr>
+<tr>
+<td style="text-align:center">–add-locks</td>
+<td style="text-align:center">在每个表导出之前增加LOCK TABLES并且之后UNLOCK TABLE。默认为打开状态，使用–skip-add-locks取消选项</td>
+</tr>
+<tr>
+<td style="text-align:center">–lock-all-tables, -x</td>
+<td style="text-align:center">提交请求锁定所有数据库中的所有表，以保证数据的一致性。这是一个全局读锁，并且自动关闭</td>
+</tr>
+<tr>
+<td style="text-align:center">–comments</td>
+<td style="text-align:center">附加注释信息，可以用–skip-comments取消</td>
+</tr>
+<tr>
+<td style="text-align:center">–compact</td>
+<td style="text-align:center">导出更少的输出信息(用于调试)。去掉注释和头尾等结构</td>
+</tr>
+<tr>
+<td style="text-align:center">–complete-insert, -c</td>
+<td style="text-align:center">使用完整的insert语句(包含列名称)。这么做能提高插入效率，但是可能会受到max_allowed_packet参数的影响而导致插入失败</td>
+</tr>
+<tr>
+<td style="text-align:center">–compress, -C</td>
+<td style="text-align:center">在客户端和服务器之间启用压缩传递所有信息</td>
+</tr>
+<tr>
+<td style="text-align:center">–delayed-insert</td>
+<td style="text-align:center">采用延时插入方式导出数据</td>
+</tr>
+</tbody>
+</table>
+<hr>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Spring Boot使用@Schedule注解开启定时任务]]></title>
+      <url>/2017/12/03/Scheduler/</url>
+      <content type="html"><![CDATA[<ol>
+<li>在Application类上开启EnableScheduling注解     <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>      </span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span></span>&#123;  </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		SpringApplication.run(Application.class,args);    </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"><span class="number">2</span>.创建一个任务类并在方法上开启<span class="meta">@Scheduled</span>注解</span><br><span class="line">```java</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackupScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(DatabaseBackupScheduler.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0 0/1 * * * ?"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cronSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(<span class="string">"cron每一分钟执行一次"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedRate = <span class="number">60000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fixedRateSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(<span class="string">"fixedRate每一分钟执行一次"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedDelay = <span class="number">60000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fixedDealyInSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(<span class="string">"fixedDealy每一分钟执行一次"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上三种方式都是每分钟执行一次注解方法   </p>
+<ul>
+<li>fixedRate是每间隔一段时间执行一次  </li>
+<li><p>fixedDelay是在任务执行完成后的一段时间开始执行  </p>
+<blockquote>
+<p>在上述方法中   </p>
+<ul>
+<li>fixedRate是每60秒执行一次，无论任务执行了多久都必须强制执行 </li>
+<li>fixedDelay是在任务执行完成后60秒在执行  </li>
+</ul>
+</blockquote>
+</li>
+<li><p>cron表达式可用于实现复杂定时任务  </p>
+<blockquote>
+<p>语法格式为：  </p>
+<ul>
+<li>Seconds Minutes Hours DayofMonth Month DayofWeek Year   </li>
+<li>Seconds Minutes Hours DayofMonth Month DayofWeek</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="简单语法"><a href="#简单语法" class="headerlink" title="简单语法"></a>简单语法</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">格式</th>
+<th style="text-align:center">取值范围</th>
+<th style="text-align:center">可出现字符    </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">秒</td>
+<td style="text-align:center">0~59</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">分</td>
+<td style="text-align:center">0~59</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">时</td>
+<td style="text-align:center">0~23</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">天/月</td>
+<td style="text-align:center">0~31</td>
+<td style="text-align:center">, - * / ? L W C</td>
+</tr>
+<tr>
+<td style="text-align:center">月</td>
+<td style="text-align:center">0~11</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+<tr>
+<td style="text-align:center">天/周</td>
+<td style="text-align:center">1~7</td>
+<td style="text-align:center">, - * / ? L C #</td>
+</tr>
+<tr>
+<td style="text-align:center">年</td>
+<td style="text-align:center">1970~2099</td>
+<td style="text-align:center">, - * /</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注：在天/周中，<strong>1=SUN</strong> ，2=MON，3=TUE，4=WED，5=THU，6=FRI，7=SAT   </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">每多少的意思</td>
+<td style="text-align:center">Minutes中使用*，表示每分钟触发</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">间隔，表示范围</td>
+<td style="text-align:center">Minutes使用10-20,表示10-20每分钟触发   </td>
+</tr>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:center">起始时间触发，每隔固定时间触发一次</td>
+<td style="text-align:center">Minutes使用10/20,表示10分钟触发一次，然后30分钟触发一次，50分钟触发一次</td>
+</tr>
+<tr>
+<td style="text-align:center">,</td>
+<td style="text-align:center">列出触发的时间</td>
+<td style="text-align:center">Minutes使用10,20  表示在10分钟和20分钟触发一次</td>
+</tr>
+<tr>
+<td style="text-align:center">？</td>
+<td style="text-align:center">只能用于天/月，天/周两个字段</td>
+<td style="text-align:center">DayofMonth和DayofWeek是两个相互排斥的元素，通过问号来表明不指定值,<strong>例如在每月的10日触发调度，不管10日到底是星期几，只能写例如:13 13 15 10 <em> ?, 最后一位只能用？，而不能使用 </em>，如果使用*表示不管星期几都会触发,两者互斥</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h4><ul>
+<li>0 0 10,20 <em> </em> ? ： 每天上午10点,晚上八点触发 </li>
+<li>0 20 10 ? <em> </em> ： 每天上午10:20触发 </li>
+<li>0 20 10 ? * MON-FRI ： 周一至周五的上午10:20触发 </li>
+</ul>
+<hr>
+<h3 id="开启多线程模式"><a href="#开启多线程模式" class="headerlink" title="开启多线程模式"></a>开启多线程模式</h3><p>Springboot本身默认的@EnableScheduling注解执行方式是串行执行，即无论有多少任务，都是一个线程串行执行，并行多线程需手动配置<br>配置类如下：</p>
+<pre><code class="java"><span class="meta">@Configuration</span>
+<span class="meta">@EnableScheduling</span>
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShedulingConfig</span> <span class="keyword">implements</span> <span class="title">SchedulingConfigurer</span></span>{
+    <span class="meta">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureTasks</span><span class="params">(ScheduledTaskRegistrar scheduledTaskRegistrar)</span> </span>{
+        cheduledTaskRegistrar.setScheduler(scheduler());
+    }
+    <span class="meta">@Bean</span>
+    <span class="function"><span class="keyword">public</span> ThreadPoolTaskScheduler <span class="title">scheduler</span><span class="params">()</span> </span>{
+        ThreadPoolTaskScheduler scheduler = <span class="keyword">new</span> ThreadPoolTaskScheduler();
+        scheduler.setPoolSize(<span class="number">20</span>);
+        scheduler.setThreadNamePrefix(<span class="string">"task-"</span>);
+        scheduler.setAwaitTerminationSeconds(<span class="number">60</span>);
+        scheduler.setWaitForTasksToCompleteOnShutdown(<span class="keyword">true</span>);
+        <span class="keyword">return</span> scheduler;
+    }
+}
+</code></pre>
+<hr>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> spring boot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+    
+  
+</search>
