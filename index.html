@@ -293,6 +293,170 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/04/fogetmysqlpassword/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Song Wei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/04/fogetmysqlpassword/" itemprop="url">centos7忘记mysql密码</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T17:07:31+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/04/fogetmysqlpassword/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/04/fogetmysqlpassword/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##个人环境</p>
+<ul>
+<li>mysql 5.7.16</li>
+<li>centos 7.4</li>
+</ul>
+<h3 id="1-修改mysql配置文件"><a href="#1-修改mysql配置文件" class="headerlink" title="1.修改mysql配置文件"></a>1.修改mysql配置文件</h3><p>编辑配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>按i在[mysqld]中添加skip-grant-tables,即跳过权限认证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
+<p>按esc后输入:wq保存退出</p>
+<h3 id="2-重启mysql"><a href="#2-重启mysql" class="headerlink" title="2.重启mysql"></a>2.重启mysql</h3><p>输入命令重启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+<h3 id="3-登录mysql"><a href="#3-登录mysql" class="headerlink" title="3.登录mysql"></a>3.登录mysql</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<p>无需输入密码直接回车进入mysql</p>
+<h3 id="4-修改mysql的root密码"><a href="#4-修改mysql的root密码" class="headerlink" title="4.修改mysql的root密码"></a>4.修改mysql的root密码</h3><p>选择mysql数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br></pre></td></tr></table></figure>
+<p>修改root密码 (密码需要满足mysql的密码策略，见底部)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set authentication_string=password('你的密码') where user='root';</span><br></pre></td></tr></table></figure>
+<p>刷新权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>退出mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quit;</span><br></pre></td></tr></table></figure>
+<h3 id="5-修改-etc-my-cnf-删除skip-grant-tables"><a href="#5-修改-etc-my-cnf-删除skip-grant-tables" class="headerlink" title="5.修改/etc/my.cnf 删除skip-grant-tables"></a>5.修改/etc/my.cnf 删除skip-grant-tables</h3><h3 id="6-重启mysql"><a href="#6-重启mysql" class="headerlink" title="6.重启mysql"></a>6.重启mysql</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+<h3 id="7-再次登录mysql，出现错误提示"><a href="#7-再次登录mysql，出现错误提示" class="headerlink" title="7.再次登录mysql，出现错误提示"></a>7.再次登录mysql，出现错误提示</h3><p>ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.<br>修改密码即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set password=password("密码");</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>密码策略如下：</strong></p>
+<ul>
+<li>至少8位</li>
+<li>至少包含1位特殊字符</li>
+<li>至少包含大小写混合</li>
+<li>至少1位数字<br>如果出现1819错误，代表密码不符合要求<br>ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/03/databaseBackup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -863,7 +1027,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -876,7 +1040,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
