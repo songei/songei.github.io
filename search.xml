@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mysql5.7创建用户开放远程连接]]></title>
+    <url>%2F2017%2F12%2F04%2Fconnect%2F</url>
+    <content type="text"><![CDATA[1.执行mysql命令输入密码后进入mysql1mysql -u root -p 2.选择mysql数据库1use mysql; 3.创建用户1create user '用户名'@'%' identified by '密码'; 用户名自行填写%代表所有地址，也可指定具体地址，例如localhost,全文皆以%代替注：密码需要满足mysql密码策略，详情见centos7忘记mysql密码 4.用户授权1grant all privileges on 数据库名.* to '用户名'@'%' identified by '密码' with grant option; 权限可自定义权限例如： grant select, insert on ….等数据库名.*代表此数据库下的所有表，也可指定到此数据库下具体的表 5.刷新权限1234567flush privileges;```` ### 6.修改用户密码 ```shell set password for '用户名'@'%' = password('新密码'); 7.查看用户权限1show grants for 用户名@%; 8.撤销用户权限1revoke all privileges on 数据库名.表 from '用户名'@'%'; 9.删除用户1drop user '用户名'@'%';]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[centos7忘记mysql密码]]></title>
     <url>%2F2017%2F12%2F04%2Ffogetmysqlpassword%2F</url>
     <content type="text"><![CDATA[##个人环境 mysql 5.7.16 centos 7.4 1.修改mysql配置文件编辑配置文件 1vim /etc/my.cnf 按i在[mysqld]中添加skip-grant-tables,即跳过权限认证 1skip-grant-tables 按esc后输入:wq保存退出 2.重启mysql输入命令重启 1service mysqld restart 3.登录mysql1mysql -u root -p 无需输入密码直接回车进入mysql 4.修改mysql的root密码选择mysql数据库 1use mysql; 修改root密码 (密码需要满足mysql的密码策略，见底部) 1update user set authentication_string=password('你的密码') where user='root'; 刷新权限 1flush privileges; 退出mysql 1quit; 5.修改/etc/my.cnf 删除skip-grant-tables6.重启mysql1service mysqld restart 7.再次登录mysql，出现错误提示ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.修改密码即可 1set password=password("密码"); 密码策略如下： 至少8位 至少包含1位特殊字符 至少包含大小写混合 至少1位数字如果出现1819错误，代表密码不符合要求ERROR 1819 (HY000): Your password does not satisfy the current policy requirements]]></content>

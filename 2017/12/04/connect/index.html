@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="spring boot," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="在Application类上开启EnableScheduling注解     123456789101112131415161718192021222324252627282930@SpringBootApplication      @EnableSchedulingpublic class Application&">
-<meta name="keywords" content="spring boot">
+<meta name="description" content="1.执行mysql命令输入密码后进入mysql1mysql -u root -p 2.选择mysql数据库1use mysql; 3.创建用户1create user &apos;用户名&apos;@&apos;%&apos; identified by &apos;密码&apos;;  用户名自行填写%代表所有地址，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Boot使用@Schedule注解开启定时任务">
-<meta property="og:url" content="http://songwei.site/2017/12/03/Scheduler/index.html">
+<meta property="og:title" content="mysql5.7创建用户开放远程连接">
+<meta property="og:url" content="http://songwei.site/2017/12/04/connect/index.html">
 <meta property="og:site_name" content="Welcome to Song Wei&#39;s blog">
-<meta property="og:description" content="在Application类上开启EnableScheduling注解     123456789101112131415161718192021222324252627282930@SpringBootApplication      @EnableSchedulingpublic class Application&amp;#123;  	public static void main(String[">
+<meta property="og:description" content="1.执行mysql命令输入密码后进入mysql1mysql -u root -p 2.选择mysql数据库1use mysql; 3.创建用户1create user &apos;用户名&apos;@&apos;%&apos; identified by &apos;密码&apos;;  用户名自行填写%代表所有地址，也可指定具体地址，例如localhost,全文皆以%代替注：密码需要满足mysql密码策略，详情见centos7忘记mysql密码  4.用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-03T12:48:13.767Z">
+<meta property="og:updated_time" content="2017-12-04T14:00:22.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring Boot使用@Schedule注解开启定时任务">
-<meta name="twitter:description" content="在Application类上开启EnableScheduling注解     123456789101112131415161718192021222324252627282930@SpringBootApplication      @EnableSchedulingpublic class Application&amp;#123;  	public static void main(String[">
+<meta name="twitter:title" content="mysql5.7创建用户开放远程连接">
+<meta name="twitter:description" content="1.执行mysql命令输入密码后进入mysql1mysql -u root -p 2.选择mysql数据库1use mysql; 3.创建用户1create user &apos;用户名&apos;@&apos;%&apos; identified by &apos;密码&apos;;  用户名自行填写%代表所有地址，也可指定具体地址，例如localhost,全文皆以%代替注：密码需要满足mysql密码策略，详情见centos7忘记mysql密码  4.用">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://songwei.site/2017/12/03/Scheduler/"/>
+  <link rel="canonical" href="http://songwei.site/2017/12/04/connect/"/>
 
 
 
 
 
-  <title>Spring Boot使用@Schedule注解开启定时任务 | Welcome to Song Wei's blog</title>
+  <title>mysql5.7创建用户开放远程连接 | Welcome to Song Wei's blog</title>
   
 
 
@@ -297,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/03/Scheduler/">
+    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/04/connect/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Song Wei">
@@ -314,7 +313,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Spring Boot使用@Schedule注解开启定时任务</h2>
+          <h2 class="post-title" itemprop="name headline">mysql5.7创建用户开放远程连接</h2>
         
 
         <div class="post-meta">
@@ -326,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T15:05:25+08:00">
-                2017-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T18:00:56+08:00">
+                2017-12-04
               </time>
             
 
@@ -345,9 +344,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/03/Scheduler/#comments" itemprop="discussionUrl">
+                <a href="/2017/12/04/connect/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/03/Scheduler/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/12/04/connect/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -375,142 +374,20 @@
       
 
       
-        <ol>
-<li>在Application类上开启EnableScheduling注解     <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span>      </span><br><span class="line"><span class="meta">@EnableScheduling</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span></span>&#123;  </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">		SpringApplication.run(Application.class,args);    </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line"><span class="number">2</span>.创建一个任务类并在方法上开启<span class="meta">@Scheduled</span>注解</span><br><span class="line">```java</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackupScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(DatabaseBackupScheduler.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0 0/1 * * * ?"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cronSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(<span class="string">"cron每一分钟执行一次"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedRate = <span class="number">60000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fixedRateSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(<span class="string">"fixedRate每一分钟执行一次"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Scheduled</span>(fixedDelay = <span class="number">60000</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fixedDealyInSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        logger.info(<span class="string">"fixedDealy每一分钟执行一次"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>以上三种方式都是每分钟执行一次注解方法   </p>
-<ul>
-<li>fixedRate是每间隔一段时间执行一次  </li>
-<li><p>fixedDelay是在任务执行完成后的一段时间开始执行  </p>
+        <h3 id="1-执行mysql命令输入密码后进入mysql"><a href="#1-执行mysql命令输入密码后进入mysql" class="headerlink" title="1.执行mysql命令输入密码后进入mysql"></a>1.执行mysql命令输入密码后进入mysql</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+<h3 id="2-选择mysql数据库"><a href="#2-选择mysql数据库" class="headerlink" title="2.选择mysql数据库"></a>2.选择mysql数据库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br></pre></td></tr></table></figure>
+<h3 id="3-创建用户"><a href="#3-创建用户" class="headerlink" title="3.创建用户"></a>3.创建用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create user '用户名'@'%' identified by '密码';</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>在上述方法中   </p>
-<ul>
-<li>fixedRate是每60秒执行一次，无论任务执行了多久都必须强制执行 </li>
-<li>fixedDelay是在任务执行完成后60秒在执行  </li>
-</ul>
+<p>用户名自行填写<br>%代表所有地址，也可指定具体地址，例如localhost,全文皆以%代替<br><strong>注：</strong>密码需要满足mysql密码策略，详情见<a href="http://songwei.site/2017/12/04/fogetmysqlpassword/">centos7忘记mysql密码</a></p>
 </blockquote>
-</li>
-<li><p>cron表达式可用于实现复杂定时任务  </p>
+<h3 id="4-用户授权"><a href="#4-用户授权" class="headerlink" title="4.用户授权"></a>4.用户授权</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on 数据库名.* to '用户名'@'%' identified by '密码' with grant option;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>语法格式为：  </p>
-<ul>
-<li>Seconds Minutes Hours DayofMonth Month DayofWeek Year   </li>
-<li>Seconds Minutes Hours DayofMonth Month DayofWeek</li>
-</ul>
+<p>权限可自定义权限例如： grant select, insert on ….等<br>数据库名.*代表此数据库下的所有表，也可指定到此数据库下具体的表</p>
 </blockquote>
-</li>
-</ul>
-<h3 id="简单语法"><a href="#简单语法" class="headerlink" title="简单语法"></a>简单语法</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">格式</th>
-<th style="text-align:center">取值范围</th>
-<th style="text-align:center">可出现字符    </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">秒</td>
-<td style="text-align:center">0~59</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">分</td>
-<td style="text-align:center">0~59</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">时</td>
-<td style="text-align:center">0~23</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">天/月</td>
-<td style="text-align:center">0~31</td>
-<td style="text-align:center">, - * / ? L W C</td>
-</tr>
-<tr>
-<td style="text-align:center">月</td>
-<td style="text-align:center">0~11</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">天/周</td>
-<td style="text-align:center">1~7</td>
-<td style="text-align:center">, - * / ? L C #</td>
-</tr>
-<tr>
-<td style="text-align:center">年</td>
-<td style="text-align:center">1970~2099</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>注：在天/周中，<strong>1=SUN</strong> ，2=MON，3=TUE，4=WED，5=THU，6=FRI，7=SAT   </p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">字符</th>
-<th style="text-align:center">含义</th>
-<th style="text-align:center">例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">*</td>
-<td style="text-align:center">每多少的意思</td>
-<td style="text-align:center">Minutes中使用*，表示每分钟触发</td>
-</tr>
-<tr>
-<td style="text-align:center">-</td>
-<td style="text-align:center">间隔，表示范围</td>
-<td style="text-align:center">Minutes使用10-20,表示10-20每分钟触发   </td>
-</tr>
-<tr>
-<td style="text-align:center">/</td>
-<td style="text-align:center">起始时间触发，每隔固定时间触发一次</td>
-<td style="text-align:center">Minutes使用10/20,表示10分钟触发一次，然后30分钟触发一次，50分钟触发一次</td>
-</tr>
-<tr>
-<td style="text-align:center">,</td>
-<td style="text-align:center">列出触发的时间</td>
-<td style="text-align:center">Minutes使用10,20  表示在10分钟和20分钟触发一次</td>
-</tr>
-<tr>
-<td style="text-align:center">？</td>
-<td style="text-align:center">只能用于天/月，天/周两个字段</td>
-<td style="text-align:center">DayofMonth和DayofWeek是两个相互排斥的元素，通过问号来表明不指定值,<strong>例如在每月的10日触发调度，不管10日到底是星期几，只能写例如:13 13 15 10 <em> ?, 最后一位只能用？，而不能使用 </em>，如果使用*表示不管星期几都会触发,两者互斥</strong></td>
-</tr>
-</tbody>
-</table>
-<h4 id="例如"><a href="#例如" class="headerlink" title="例如"></a>例如</h4><ul>
-<li>0 0 10,20 <em> </em> ? ： 每天上午10点,晚上八点触发 </li>
-<li>0 20 10 ? <em> </em> ： 每天上午10:20触发 </li>
-<li>0 20 10 ? * MON-FRI ： 周一至周五的上午10:20触发 </li>
-</ul>
-<hr>
-<h3 id="开启多线程模式"><a href="#开启多线程模式" class="headerlink" title="开启多线程模式"></a>开启多线程模式</h3><p>Springboot本身默认的@EnableScheduling注解执行方式是串行执行，即无论有多少任务，都是一个线程串行执行，并行多线程需手动配置<br>配置类如下：</p>
-<pre><code class="java"><span class="meta">@Configuration</span>
-<span class="meta">@EnableScheduling</span>
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShedulingConfig</span> <span class="keyword">implements</span> <span class="title">SchedulingConfigurer</span></span>{
-    <span class="meta">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureTasks</span><span class="params">(ScheduledTaskRegistrar scheduledTaskRegistrar)</span> </span>{
-        cheduledTaskRegistrar.setScheduler(scheduler());
-    }
-    <span class="meta">@Bean</span>
-    <span class="function"><span class="keyword">public</span> ThreadPoolTaskScheduler <span class="title">scheduler</span><span class="params">()</span> </span>{
-        ThreadPoolTaskScheduler scheduler = <span class="keyword">new</span> ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(<span class="number">20</span>);
-        scheduler.setThreadNamePrefix(<span class="string">"task-"</span>);
-        scheduler.setAwaitTerminationSeconds(<span class="number">60</span>);
-        scheduler.setWaitForTasksToCompleteOnShutdown(<span class="keyword">true</span>);
-        <span class="keyword">return</span> scheduler;
-    }
-}
-</code></pre>
+<h3 id="5-刷新权限"><a href="#5-刷新权限" class="headerlink" title="5.刷新权限"></a>5.刷新权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br><span class="line">````       </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>## 6.修改用户密码  </span><br><span class="line"></span><br><span class="line">```shell  </span><br><span class="line">set password for '用户名'@'%' = password('新密码');</span><br></pre></td></tr></table></figure>
+<h3 id="7-查看用户权限"><a href="#7-查看用户权限" class="headerlink" title="7.查看用户权限"></a>7.查看用户权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show grants for 用户名@%;</span><br></pre></td></tr></table></figure>
+<h3 id="8-撤销用户权限"><a href="#8-撤销用户权限" class="headerlink" title="8.撤销用户权限"></a>8.撤销用户权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">revoke all privileges on 数据库名.表 from '用户名'@'%';</span><br></pre></td></tr></table></figure>
+<h3 id="9-删除用户"><a href="#9-删除用户" class="headerlink" title="9.删除用户"></a>9.删除用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop user '用户名'@'%';</span><br></pre></td></tr></table></figure>
 <hr>
 
       
@@ -527,12 +404,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
-          
-        </div>
-      
 
       
       
@@ -542,15 +413,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/12/04/fogetmysqlpassword/" rel="next" title="centos7忘记mysql密码">
+                <i class="fa fa-chevron-left"></i> centos7忘记mysql密码
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/03/databaseBackup/" rel="prev" title="Spring Boot备份远程阿里云mysql数据库">
-                Spring Boot备份远程阿里云mysql数据库 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -699,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单语法"><span class="nav-number">1.</span> <span class="nav-text">简单语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例如"><span class="nav-number">1.1.</span> <span class="nav-text">例如</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启多线程模式"><span class="nav-number">2.</span> <span class="nav-text">开启多线程模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-执行mysql命令输入密码后进入mysql"><span class="nav-number">1.</span> <span class="nav-text">1.执行mysql命令输入密码后进入mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-选择mysql数据库"><span class="nav-number">2.</span> <span class="nav-text">2.选择mysql数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建用户"><span class="nav-number">3.</span> <span class="nav-text">3.创建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-用户授权"><span class="nav-number">4.</span> <span class="nav-text">4.用户授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-刷新权限"><span class="nav-number">5.</span> <span class="nav-text">5.刷新权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-查看用户权限"><span class="nav-number">6.</span> <span class="nav-text">7.查看用户权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-撤销用户权限"><span class="nav-number">7.</span> <span class="nav-text">8.撤销用户权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-删除用户"><span class="nav-number">8.</span> <span class="nav-text">9.删除用户</span></a></li></ol></div>
             
 
           </div>
@@ -863,9 +734,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://songwei.site/2017/12/03/Scheduler/';
-          this.page.identifier = '2017/12/03/Scheduler/';
-          this.page.title = 'Spring Boot使用@Schedule注解开启定时任务';
+          this.page.url = 'http://songwei.site/2017/12/04/connect/';
+          this.page.identifier = '2017/12/04/connect/';
+          this.page.title = 'mysql5.7创建用户开放远程连接';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
