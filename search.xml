@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title></title>
+    <url>%2F2017%2F12%2F18%2Fyumerror%2F</url>
+    <content type="text"><![CDATA[title: centos7 yum错误cannot find a valid baseurl for repo:base/7/x86_64date: 2017-12-18 15:06:21tags: linux 问题主要原因是无法联网，解决方法 方法1 vim /etc/sysconfig/network-scripts/ifcfg-eth0（端口可能会不一致，数字会有变化） onboot=no改为onboot=yes 重启网络 service network restart 方法2 vim /etc/resolv.conf 添加nameserver 8.8.8.8 重启网络 service network restart]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[linux shutdown命令]]></title>
     <url>%2F2017%2F12%2F14%2Fshutdown%2F</url>
     <content type="text"><![CDATA[shutdown命令 参数 含义用法 -t 参数后加秒数，代表过几秒后关机 -k 并不关机，只是发送警告消息 -r 在关掉系统服务之后 重启 -h 在关掉系统服务之后 关机 -n 不经过init程序，直接以shutdown来关机 -f 关机重启后，强制略过fsck磁盘检查 -F 关机重启后，强制进行fsck磁盘检查 -c 取消已经在进行的shutdown命令内容 时间 指定系统关机时间 例: 1234567891011121314shutdown -h now立刻关机，now相当于时间为0shutdown -h +20在二十分钟后关机shutdown -r +20在二十分钟后重启shutdown -k now 'the system will rebot'系统不会关闭，只是发消息给所有用户通知shutdown -h 20:20在晚上20:20关机 注：除使用图形界面，可以以任何身份关机其余例如远程ssh服务都需要root权限]]></content>
