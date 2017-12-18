@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title><![CDATA[centos7 yum错误cannot find a valid baseurl for repo:base/7/x86_64]]></title>
     <url>%2F2017%2F12%2F18%2Fyumerror%2F</url>
-    <content type="text"><![CDATA[title: centos7 yum错误cannot find a valid baseurl for repo:base/7/x86_64date: 2017-12-18 15:06:21tags: linux 问题主要原因是无法联网，解决方法 方法1 vim /etc/sysconfig/network-scripts/ifcfg-eth0（端口可能会不一致，数字会有变化） onboot=no改为onboot=yes 重启网络 service network restart 方法2 vim /etc/resolv.conf 添加nameserver 8.8.8.8 重启网络 service network restart]]></content>
+    <content type="text"><![CDATA[问题主要原因是无法联网，解决方法 方法1 vim /etc/sysconfig/network-scripts/ifcfg-eth0（端口可能会不一致，数字会有变化） onboot=no改为onboot=yes 重启网络 service network restart 方法2 vim /etc/resolv.conf 添加nameserver 8.8.8.8 重启网络 service network restart]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[linux shutdown命令]]></title>
