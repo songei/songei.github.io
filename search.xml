@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mysql中DATE_FORMAT用法]]></title>
+    <url>%2F2018%2F01%2F07%2Fdateformat%2F</url>
+    <content type="text"><![CDATA[DATE_FORMAT(date,format)根据fromat字符串参数格式化日期format参数需加百分号表示参数例：12SELECT DATE_FORMAT(&apos;2017-1-7 10:45:23&apos;,&apos;%Y-%c-%e&apos;);2017-1-7 参数 描述 %a 周英文缩写(Sun,Mon..Sat) %b 月数英文缩写(Jan,Feb..Dec) %c 月数数字(0,1..12) %D 带英文尾缀的一月中天数(0th,1st,2nd,3rd..) %d 一月中天数数字格式(00..31) %e 一月中天数数字格式(0..31) %f 日期的毫秒数(000000..999999) %H 一天中小时数24小时制(00..23) %h 一天中小时数12小时制(01..12) %I 一天中小时数12小时制(01..12) %i 一小时的分钟数(00..59) %j 一年中天数(001..366) %k 一天中小时数24小时制(0..23) %l 一天中小时数12小时制(1..12) %M 月数英文全称(January..December) %m 月数数字(00..12) %p AM PM %r 12小时制时间(hh:mm:ss加AM PM) %S 秒数(00..59) %s 秒数(00..59) %T 24小时制时间(hh:mm:ss) %U 一年中周数(00..53),周日是一周的头一天 %u 一年中周数(00..53),周一是一周的头一天 %W 一周天数英文全称(Sunday..Saturday) %w 一周天数数字(0=Sunday..6=Saturday) %Y 年数，四位数(2017) %y 年数，二位数(17) 12345678910按年统计select 列 from 表 group by date_format(列,&apos;%Y&apos;);按月统计select 列 from 表 group by date_format(列,&apos;%Y-%c&apos;);按周统计select 列 from 表 group by date_format(列,&apos;%Y-%u&apos;);按天统计select 列 from 表 group by date_format(列,&apos;%Y-%c-%e&apos;);按小时统计select 列 from 表 group by date_format(列,&apos;%Y-%c-%e %H&apos;);]]></content>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[centos7 yum错误cannot find a valid baseurl for repo:base/7/x86_64]]></title>
     <url>%2F2017%2F12%2F18%2Fyumerror%2F</url>
     <content type="text"><![CDATA[问题主要原因是无法联网，解决方法 方法1 vim /etc/sysconfig/network-scripts/ifcfg-eth0（端口可能会不一致，数字会有变化） onboot=no改为onboot=yes 重启网络 service network restart 方法2 vim /etc/resolv.conf 添加nameserver 8.8.8.8 重启网络 service network restart]]></content>
