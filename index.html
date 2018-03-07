@@ -375,11 +375,89 @@
       
         
           
-            <p>###简介<br>grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来</p>
-<p>###格式<br>grep 参数 files</p>
-<p>###主要参数<br>|参数|描述|<br>|:-:|:-:|<br>|-i|不区分大小写|<br>|-c|只输出匹配行的数目|<br>|-n|显示匹配行及行号|<br>|-s|不显示错误信息|<br>|-v|反向匹配，显示不匹配的行|<br>|-l|查询多文件时候只输出包含匹配字符的文件名|<br>|-r|递归查找子目录|<br>|–color|将关键字加上颜色|</p>
-<p>###常用正则表达式<br>|参数|描述|<br>|:-:|:-:|<br>||反义字符|<br>|^$|开始和结束|<br>|[]|单个字符|<br>|-|匹配范围字符|<br>|*|前面字符出现零次或者多次|<br>|+|前面字符出现一次或者多次|<br>|.|任意字符|</p>
-<p>###使用场景<br><strong>不区分大小写，加上-i来忽略大小写</strong></p>
+            <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>grep 参数 files</p>
+<h3 id="主要参数"><a href="#主要参数" class="headerlink" title="主要参数"></a>主要参数</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-i</td>
+<td style="text-align:center">不区分大小写</td>
+</tr>
+<tr>
+<td style="text-align:center">-c</td>
+<td style="text-align:center">只输出匹配行的数目</td>
+</tr>
+<tr>
+<td style="text-align:center">-n</td>
+<td style="text-align:center">显示匹配行及行号</td>
+</tr>
+<tr>
+<td style="text-align:center">-s</td>
+<td style="text-align:center">不显示错误信息</td>
+</tr>
+<tr>
+<td style="text-align:center">-v</td>
+<td style="text-align:center">反向匹配，显示不匹配的行</td>
+</tr>
+<tr>
+<td style="text-align:center">-l</td>
+<td style="text-align:center">查询多文件时候只输出包含匹配字符的文件名</td>
+</tr>
+<tr>
+<td style="text-align:center">-r</td>
+<td style="text-align:center">递归查找子目录</td>
+</tr>
+<tr>
+<td style="text-align:center">–color</td>
+<td style="text-align:center">将关键字加上颜色</td>
+</tr>
+</tbody>
+</table>
+<h3 id="常用正则表达式"><a href="#常用正则表达式" class="headerlink" title="常用正则表达式"></a>常用正则表达式</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\</td>
+<td style="text-align:center">反义字符</td>
+</tr>
+<tr>
+<td style="text-align:center">^$</td>
+<td style="text-align:center">开始和结束</td>
+</tr>
+<tr>
+<td style="text-align:center">[]</td>
+<td style="text-align:center">单个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">匹配范围字符</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">前面字符出现零次或者多次</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">前面字符出现一次或者多次</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:center">任意字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p><strong>不区分大小写，加上-i来忽略大小写</strong></p>
 <ul>
 <li>在文本中搜索一个单词<br>grep pattern filename<br>在filename文件中查找所有匹配pattern的单词`</li>
 <li>在多个文件中查找<br>grep pattern filename1 filename2 …<br>在多个文件中查找所有匹配pattern的单词`</li>

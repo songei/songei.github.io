@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[linux grep命令]]></title>
     <url>%2F2018%2F03%2F07%2Fgrep%2F</url>
-    <content type="text"><![CDATA[###简介grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:||-i|不区分大小写||-c|只输出匹配行的数目||-n|显示匹配行及行号||-s|不显示错误信息||-v|反向匹配，显示不匹配的行||-l|查询多文件时候只输出包含匹配字符的文件名||-r|递归查找子目录||–color|将关键字加上颜色| ###常用正则表达式|参数|描述||:-:|:-:|||反义字符||^$|开始和结束||[]|单个字符||-|匹配范围字符||*|前面字符出现零次或者多次||+|前面字符出现一次或者多次||.|任意字符| ###使用场景不区分大小写，加上-i来忽略大小写 在文本中搜索一个单词grep pattern filename在filename文件中查找所有匹配pattern的单词` 在多个文件中查找grep pattern filename1 filename2 …在多个文件中查找所有匹配pattern的单词` 使用-v反向输出，显示不匹配的行grep -v pattern filename 标记匹配颜色grep pattern filename –color 使用-c统计个数grep -c pattern filename 使用-r递归查找子目录grep -r pattern directorydirectory .表示当前目录]]></content>
+    <content type="text"><![CDATA[简介grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来 格式grep 参数 files 主要参数 参数 描述 -i 不区分大小写 -c 只输出匹配行的数目 -n 显示匹配行及行号 -s 不显示错误信息 -v 反向匹配，显示不匹配的行 -l 查询多文件时候只输出包含匹配字符的文件名 -r 递归查找子目录 –color 将关键字加上颜色 常用正则表达式 参数 描述 \ 反义字符 ^$ 开始和结束 [] 单个字符 - 匹配范围字符 * 前面字符出现零次或者多次 + 前面字符出现一次或者多次 . 任意字符 使用场景不区分大小写，加上-i来忽略大小写 在文本中搜索一个单词grep pattern filename在filename文件中查找所有匹配pattern的单词` 在多个文件中查找grep pattern filename1 filename2 …在多个文件中查找所有匹配pattern的单词` 使用-v反向输出，显示不匹配的行grep -v pattern filename 标记匹配颜色grep pattern filename –color 使用-c统计个数grep -c pattern filename 使用-r递归查找子目录grep -r pattern directorydirectory .表示当前目录]]></content>
       <tags>
         <tag>linux</tag>
       </tags>
