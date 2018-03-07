@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="###简介grep全称(Global Serach Regular Expression And Print Out The Line)是linux，unix下文本搜索工具，利用正则表达式搜索文本，并把匹配的行打印出来。 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:|| -i | ">
+<meta name="description" content="###简介grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:||-i|不区分大小">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux grep命令">
 <meta property="og:url" content="http://songwei.site/2018/03/07/grep/index.html">
 <meta property="og:site_name" content="Welcome to Song Wei&#39;s blog">
-<meta property="og:description" content="###简介grep全称(Global Serach Regular Expression And Print Out The Line)是linux，unix下文本搜索工具，利用正则表达式搜索文本，并把匹配的行打印出来。 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:|| -i | 不区分大小写 || -c | 只输出匹配行的数目 || -n | 显示匹配行及行">
+<meta property="og:description" content="###简介grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:||-i|不区分大小写||-c|只输出匹配行的数目||-n|显示匹配行及行号||-s|不显示错误信息">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-07T08:12:10.589Z">
+<meta property="og:updated_time" content="2018-03-07T08:20:40.676Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux grep命令">
-<meta name="twitter:description" content="###简介grep全称(Global Serach Regular Expression And Print Out The Line)是linux，unix下文本搜索工具，利用正则表达式搜索文本，并把匹配的行打印出来。 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:|| -i | 不区分大小写 || -c | 只输出匹配行的数目 || -n | 显示匹配行及行">
+<meta name="twitter:description" content="###简介grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来 ###格式grep 参数 files ###主要参数|参数|描述||:-:|:-:||-i|不区分大小写||-c|只输出匹配行的数目||-n|显示匹配行及行号||-s|不显示错误信息">
 
 
 
@@ -380,10 +380,10 @@
       
 
       
-        <p>###简介<br>grep全称(Global Serach Regular Expression And Print Out The Line)是linux，unix下文本搜索工具，利用正则表达式搜索文本，并把匹配的行打印出来。</p>
+        <p>###简介<br>grep(Global Search Regular Expression And Print Out The Line)是Linux，Unix文本搜索工具，利用正则表达式匹配搜索文本，并把匹配的行打印出来</p>
 <p>###格式<br>grep 参数 files</p>
-<p>###主要参数<br>|参数|描述|<br>|:-:|:-:|<br>| -i | 不区分大小写 |<br>| -c | 只输出匹配行的数目 |<br>| -n | 显示匹配行及行号 |<br>| -s | 不显示错误信息 |<br>| -v | 反向匹配，显示不匹配的行 |<br>| -l | 查询多文件的时候只输出包含匹配字符的文件名 |<br>| -r | 递归查找子目录 |<br>| –color | 将找到关键词加上颜色 |</p>
-<p>###正则表达式<br>|参数|描述|<br>|:-:|:-:|<br>| \ | 反义字符 |<br>| ^$ | 开始和结束 |<br>| [] | 单个字符 |<br>| - | 匹配一个范围字符 |<br>| * | 前面字符出现零次或多次 |<br>| + | 前面字符出现一次或多次 |<br>| . | 任意字符 |</p>
+<p>###主要参数<br>|参数|描述|<br>|:-:|:-:|<br>|-i|不区分大小写|<br>|-c|只输出匹配行的数目|<br>|-n|显示匹配行及行号|<br>|-s|不显示错误信息|<br>|-v|反向匹配，显示不匹配的行|<br>|-l|查询多文件时候只输出包含匹配字符的文件名|<br>|-r|递归查找子目录|<br>|–color|将关键字加上颜色|</p>
+<p>###常用正则表达式<br>|参数|描述|<br>|:-:|:-:|<br>||反义字符|<br>|^$|开始和结束|<br>|[]|单个字符|<br>|-|匹配范围字符|<br>|*|前面字符出现零次或者多次|<br>|+|前面字符出现一次或者多次|<br>|.|任意字符|</p>
 <p>###使用场景<br><strong>不区分大小写，加上-i来忽略大小写</strong></p>
 <ul>
 <li>在文本中搜索一个单词<br>grep pattern filename<br>在filename文件中查找所有匹配pattern的单词`</li>
