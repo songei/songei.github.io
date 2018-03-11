@@ -293,6 +293,317 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://songwei.site/2018/03/11/null/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Song Wei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/11/null/" itemprop="url">java中的null</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T10:34:20+08:00">
+                2018-03-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/11/null/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/11/null/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="null是什么"><a href="#null是什么" class="headerlink" title="null是什么"></a>null是什么</h2><ol>
+<li>null是java中的关键字，像public、static、void。大小写敏感，Null或NULL都是错误的，编译器不能识别。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object object = Null; <span class="comment">//wrong</span></span><br><span class="line">Object object = <span class="keyword">null</span>; <span class="comment">//ok</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>在java中的每一种基本类型都有默认值，int默认值为0，boolean默认值是false，任何引用类型变量的默认值都是null(所有变量都是如此，如成员变量、局部变量、实例变量、静态变量)。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Object object;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">    System.out.print(<span class="string">"The value of object is:"</span> + object);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出：The value of object is:null</p>
+</blockquote>
+<ol>
+<li>null既不是对象也不是类型，而仅仅是一种特殊值，可以将null赋予任何引用类型，也可以将null转换成任何类型。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">null</span>; <span class="comment">//ok</span></span><br><span class="line">Float f = <span class="keyword">null</span>; <span class="comment">//ok</span></span><br><span class="line">Object o = <span class="keyword">null</span>; <span class="comment">//ok</span></span><br><span class="line"></span><br><span class="line">String s = (String)<span class="keyword">null</span>; <span class="comment">//ok</span></span><br><span class="line">Float f = (Float)<span class="keyword">null</span>; <span class="comment">//ok</span></span><br><span class="line">Object o = (Object)<span class="keyword">null</span>; <span class="comment">//ok</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>null可以赋值给给引用变量，你不能将null赋给基本类型变量，例如int、double、float、boolean。如果你那样做了，编译器将会报错。但是如果将null赋值给包装类object，然后将object赋给各自的基本类型，编译器不会报，但是你将会在运行时期遇到空指针异常,这是Java中的自动拆箱导致的。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="keyword">null</span>; <span class="comment">//wrong</span></span><br><span class="line"><span class="keyword">float</span> f = <span class="keyword">null</span>; <span class="comment">//wrong</span></span><br><span class="line"><span class="keyword">double</span> d = <span class="keyword">null</span>; <span class="comment">//wrong</span></span><br><span class="line"></span><br><span class="line">Integer i = <span class="keyword">null</span>; <span class="comment">//ok</span></span><br><span class="line"><span class="keyword">int</span> j = i; <span class="comment">//ok</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>任何含有null值的包装类在Java拆箱生成基本数据类型时候都会抛出一个空指针异常。在使用HashMap和Integer键值的时候会发生很多这样的错误。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">      Map numberAndCount = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">      <span class="keyword">int</span>[] numbers = &#123;<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>,<span class="number">9</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">33</span>, <span class="number">12</span>, <span class="number">5</span>&#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i : numbers)&#123;</span><br><span class="line">         <span class="keyword">int</span> count = numberAndCount.get(i);</span><br><span class="line">         numberAndCount.put(i, count++); <span class="comment">// NullPointerException here</span></span><br><span class="line">      &#125;       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出：Exception in thread “main” java.lang.NullPointerException<br> at Test.main(Test.java:12)</p>
+</blockquote>
+<ol>
+<li>如果使用了带有null值的引用类型变量，instanceof操作将会返回false</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Integer i = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(i <span class="keyword">instanceof</span> Integer)&#123;</span><br><span class="line">            System.out.println(<span class="string">"i is instance of Integer"</span>);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"i is not an instance of Integer"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出：i is not an instance of Integer</p>
+</blockquote>
+<ol>
+<li>值为null的引用类型变量调用非静态方法会抛出空指针异常，但是值为null的引用类型变量可以调用静态方法而不会抛出异常，因为静态方法使用静态绑定，不会抛出空指针异常。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Main m = <span class="keyword">null</span>;</span><br><span class="line">        m.staticMethod();</span><br><span class="line">        m.noneStaticMethod();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">staticMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"static can be called by null reference"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">noneStaticMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"none static can not be called by null reference"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>I am static method, can be called by null reference<br>Exception in thread “main” java.lang.NullPointerException<br>               at Testing.main(Testing.java:4)</p>
+</blockquote>
+<p><strong>注：</strong>java1.8及其以上已经禁止实例变量调用静态方法</p>
+<ol>
+<li><p>可以将null传递给方法使用，这时方法可以接收任何引用类型，例如public void print(Object obj)可以这样调用print(null)。从编译角度来看这是可以的，但结果完全取决于方法。Null安全的方法，如在这个例子中的print方法，不会抛出空指针异常，只是优雅的退出。如果业务逻辑允许的话，推荐使用null安全的方法。</p>
+</li>
+<li><p>可以使用==或者!=操作来比较null值，但是不能使用其他算法或者逻辑操作，例如小于或者大于。跟SQL不一样，在Java中null==null将返回true。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object object1 = <span class="keyword">null</span>;</span><br><span class="line">        Object object2 = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (object1 == object2)&#123;</span><br><span class="line">            System.out.println(<span class="string">"null == null is true"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"null == null is false"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>输出：null == null is true</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://songwei.site/2018/03/07/codeoptimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Song Wei">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Song Wei's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/07/codeoptimization/" itemprop="url">codeoptimization</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T17:30:59+08:00">
+                2018-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/07/codeoptimization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/07/codeoptimization/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://songwei.site/2018/03/07/collection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1566,440 +1877,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/04/fogetmysqlpassword/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Wei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome to Song Wei's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/04/fogetmysqlpassword/" itemprop="url">centos7忘记mysql密码</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T17:07:31+08:00">
-                2017-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/04/fogetmysqlpassword/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/04/fogetmysqlpassword/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>##个人环境</p>
-<ul>
-<li>mysql 5.7.16</li>
-<li>centos 7.4</li>
-</ul>
-<h3 id="1-修改mysql配置文件"><a href="#1-修改mysql配置文件" class="headerlink" title="1.修改mysql配置文件"></a>1.修改mysql配置文件</h3><p>编辑配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
-<p>按i在[mysqld]中添加skip-grant-tables,即跳过权限认证</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip-grant-tables</span><br></pre></td></tr></table></figure>
-<p>按esc后输入:wq保存退出</p>
-<h3 id="2-重启mysql"><a href="#2-重启mysql" class="headerlink" title="2.重启mysql"></a>2.重启mysql</h3><p>输入命令重启</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
-<h3 id="3-登录mysql"><a href="#3-登录mysql" class="headerlink" title="3.登录mysql"></a>3.登录mysql</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
-<p>无需输入密码直接回车进入mysql</p>
-<h3 id="4-修改mysql的root密码"><a href="#4-修改mysql的root密码" class="headerlink" title="4.修改mysql的root密码"></a>4.修改mysql的root密码</h3><p>选择mysql数据库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br></pre></td></tr></table></figure>
-<p>修改root密码 (密码需要满足mysql的密码策略，见底部)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set authentication_string=password('你的密码') where user='root';</span><br></pre></td></tr></table></figure>
-<p>刷新权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-<p>退出mysql</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quit;</span><br></pre></td></tr></table></figure>
-<h3 id="5-修改-etc-my-cnf-删除skip-grant-tables"><a href="#5-修改-etc-my-cnf-删除skip-grant-tables" class="headerlink" title="5.修改/etc/my.cnf 删除skip-grant-tables"></a>5.修改/etc/my.cnf 删除skip-grant-tables</h3><h3 id="6-重启mysql"><a href="#6-重启mysql" class="headerlink" title="6.重启mysql"></a>6.重启mysql</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
-<h3 id="7-再次登录mysql，出现错误提示"><a href="#7-再次登录mysql，出现错误提示" class="headerlink" title="7.再次登录mysql，出现错误提示"></a>7.再次登录mysql，出现错误提示</h3><p>ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.<br>修改密码即可</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set password=password("密码");</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>密码策略如下：</strong></p>
-<ul>
-<li>至少8位</li>
-<li>至少包含1位特殊字符</li>
-<li>至少包含大小写混合</li>
-<li>至少1位数字<br>如果出现1819错误，代表密码不符合要求<br>ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://songwei.site/2017/12/03/databaseBackup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Song Wei">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome to Song Wei's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/03/databaseBackup/" itemprop="url">Spring Boot备份远程阿里云mysql数据库</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T20:53:38+08:00">
-                2017-12-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/03/databaseBackup/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/12/03/databaseBackup/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<h2 id="个人环境"><a href="#个人环境" class="headerlink" title="个人环境"></a>个人环境</h2><ul>
-<li>Windows10    </li>
-<li>mysql 已配置环境变量（将mysql的bin目录添加至环境变量）       </li>
-<li>阿里云mysql 开启开放远程连接权限 （参考：<a href="http://songwei.site/2017/12/04/connect/">mysql5.7.20开放远程数据库连接</a>）    </li>
-</ul>
-<ol>
-<li>定义数据库辅助类存放所需信息   </li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackUtil</span> </span>&#123;</span><br><span class="line">	 <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据库备份的部分命令参数</span></span><br><span class="line"><span class="comment">     * mysqldump 数据库备份命令</span></span><br><span class="line"><span class="comment">     * h 主机地址可以本地或者远端</span></span><br><span class="line"><span class="comment">     * P 端口3306</span></span><br><span class="line"><span class="comment">     * u 用户名</span></span><br><span class="line"><span class="comment">     * p 密码</span></span><br><span class="line"><span class="comment">     * 字符集编码</span></span><br><span class="line"><span class="comment">     * 最后 数据库名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String BACKUP_COMMAND = <span class="string">"mysqldump -h远程或本地数据库地址 -P3306 -u用户 -p密码 --default-character-set=utf8 数据库名"</span>;</span><br><span class="line">	<span class="comment">//数据库恢复部分命令参数</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String RECOVER_COMMAND=<span class="string">"mysql -h远程或本地数据库地址 -P3306 -u用户 -p密码 --default-character-set=utf8 shop"</span>;</span><br><span class="line">	<span class="comment">//数据库备份的地址</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String BACKUP_PATH = <span class="string">"D://back.mysql"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>定义数据库备份恢复服务类</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>    </span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackupService</span></span>&#123;  </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//备份函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">backup</span><span class="params">()</span></span>&#123;    </span><br><span class="line">		<span class="comment">//定义所需输入流输出流</span></span><br><span class="line">		StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">		InputStream inputStream = <span class="keyword">null</span>;</span><br><span class="line">		InputStreamReader inputStreamReader = <span class="keyword">null</span>;</span><br><span class="line">		BufferedReader bufferedReader = <span class="keyword">null</span>;</span><br><span class="line">		FileOutputStream fileOutputStream = <span class="keyword">null</span>;</span><br><span class="line">		OutputStreamWriter outputStreamWriter = <span class="keyword">null</span>;</span><br><span class="line">           </span><br><span class="line">		<span class="keyword">try</span>&#123;</span><br><span class="line">          Runtime runtime = Runtime.getRuntime();</span><br><span class="line">          <span class="comment">//执行命令行命令</span></span><br><span class="line">          Process process = runtime.exec(DatabaseBackUtil.BACKUP_COMMAND);</span><br><span class="line">          <span class="comment">//获取输入流</span></span><br><span class="line">          inputStream = process.getInputStream();</span><br><span class="line">          inputStreamReader = <span class="keyword">new</span> InputStreamReader(inputStream,<span class="string">"utf8"</span>);</span><br><span class="line">          bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line">          <span class="comment">//写入到buffer中</span></span><br><span class="line">          <span class="keyword">while</span> ((s=bufferedReader.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">          	stringBuffer.append(s+<span class="string">"\r\n"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//写入到SQL文件中</span></span><br><span class="line">          File file = <span class="keyword">new</span> File(DatabaseBackUtil.BACKUP_PATH);</span><br><span class="line">          <span class="comment">//设置fileOutputStream参数false,即每次写入覆盖掉到之前的备份</span></span><br><span class="line">          fileOutputStream = <span class="keyword">new</span> FileOutputStream(BACKUP_PATH,<span class="keyword">false</span>);</span><br><span class="line">          <span class="comment">//为防止乱码 设置outputStreamWriter为utf8</span></span><br><span class="line">          outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(fileOutputStream,<span class="string">"utf8"</span>);</span><br><span class="line">          outputStreamWriter.write(stringBuffer.toString());</span><br><span class="line">          outputStreamWriter.flush();</span><br><span class="line">      &#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">          <span class="comment">//如果获取失败 返回-1</span></span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">            	   <span class="comment">//关闭各种流</span></span><br><span class="line">                fileOutputStream.close();</span><br><span class="line">                bufferedReader.close();</span><br><span class="line">                inputStreamReader.close();</span><br><span class="line">                inputStream.close();</span><br><span class="line">                <span class="comment">//如果成功，返回0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//恢复备份函数</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">recover</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//各种流</span></span><br><span class="line">        OutputStream outputStream = <span class="keyword">null</span>;</span><br><span class="line">        StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        InputStreamReader inputStreamReader = <span class="keyword">null</span>;</span><br><span class="line">        BufferedReader bufferedReader = <span class="keyword">null</span>;</span><br><span class="line">        FileInputStream fileInputStream = <span class="keyword">null</span>;</span><br><span class="line">        OutputStreamWriter outputStreamWriter = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        	  Runtime runtime = Runtime.getRuntime();</span><br><span class="line">            Process process = runtime.exec(DatabaseBackUtil.RECOVER_COMMAND);</span><br><span class="line"></span><br><span class="line">            outputStream = process.getOutputStream();</span><br><span class="line">            fileInputStream = <span class="keyword">new</span> FileInputStream(DatabasePath.BACKUP_PATH);</span><br><span class="line">            inputStreamReader = <span class="keyword">new</span> InputStreamReader(fileInputStream);</span><br><span class="line">            bufferedReader = <span class="keyword">new</span> BufferedReader(inputStreamReader);</span><br><span class="line"></span><br><span class="line">            stringBuffer = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">            <span class="keyword">while</span> ((s=bufferedReader.readLine())!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                stringBuffer.append(s+<span class="string">"\r\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            outputStreamWriter = <span class="keyword">new</span> OutputStreamWriter(outputStream,<span class="string">"utf8"</span>);</span><br><span class="line">            outputStreamWriter.write(stringBuffer.toString());</span><br><span class="line">            outputStreamWriter.flush();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                outputStreamWriter.close();</span><br><span class="line">                bufferedReader.close();</span><br><span class="line">                inputStreamReader.close();</span><br><span class="line">                fileInputStream.close();</span><br><span class="line">                outputStream.close();</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125; </span><br><span class="line">```   </span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. 定义数据库定时类</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DatabaseBackupScheduler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(DatabaseBackupScheduler.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;Description: 每天3点备份一次&lt;/p &gt;</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@exception</span></span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0 0 3 * * ?"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">backupInSchedule</span><span class="params">()</span></span>&#123;</span><br><span class="line">        DatabaseBackupService.backup();</span><br><span class="line">        logger.info(<span class="string">"备份成功"</span>+<span class="keyword">new</span> Date().toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>开启多线程 （参考:<a href="http://www.songwei.site/2017/12/03/Scheduler/" target="_blank" rel="noopener">Spring Boot使用@Schedule注解开启定时任务</a>）</li>
-</ol>
-<h3 id="mysql详细参数"><a href="#mysql详细参数" class="headerlink" title="mysql详细参数"></a>mysql详细参数</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">含义   </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">–user, -u</td>
-<td style="text-align:center">用户名  </td>
-</tr>
-<tr>
-<td style="text-align:center">–password, -p</td>
-<td style="text-align:center">数据库密码</td>
-</tr>
-<tr>
-<td style="text-align:center">–port, -P</td>
-<td style="text-align:center">数据库端口号</td>
-</tr>
-<tr>
-<td style="text-align:center">–default-character-set</td>
-<td style="text-align:center">默认字符集，默认值为utf8</td>
-</tr>
-<tr>
-<td style="text-align:center">–host, -h</td>
-<td style="text-align:center">主机地址</td>
-</tr>
-<tr>
-<td style="text-align:center">–databases, -B</td>
-<td style="text-align:center">导出数据库。可将多个数据库跟在参数后</td>
-</tr>
-<tr>
-<td style="text-align:center">–force</td>
-<td style="text-align:center">在导出过程中忽略出现的SQL错误</td>
-</tr>
-<tr>
-<td style="text-align:center">–events, -E</td>
-<td style="text-align:center">导出事件</td>
-</tr>
-<tr>
-<td style="text-align:center">–debug</td>
-<td style="text-align:center">输出debug信息，用于调试。默认值为：d:t:o,/tmp/mysqldump.trace</td>
-</tr>
-<tr>
-<td style="text-align:center">–debug-info</td>
-<td style="text-align:center">输出调试信息并退出</td>
-</tr>
-<tr>
-<td style="text-align:center">–flush-privileges</td>
-<td style="text-align:center">在导出mysql数据库之后，发FLUSH PRIVILEGES 语句</td>
-</tr>
-<tr>
-<td style="text-align:center">–no-data, -d</td>
-<td style="text-align:center">不导出任何数据，只导出数据库表结构</td>
-</tr>
-<tr>
-<td style="text-align:center">–no-create-info, -t</td>
-<td style="text-align:center">只导出数据，而不添加CREATE TABLE 语句</td>
-</tr>
-<tr>
-<td style="text-align:center">–no-create-db, -n</td>
-<td style="text-align:center">只导出数据，而不添加CREATE DATABASE 语句</td>
-</tr>
-<tr>
-<td style="text-align:center">–ignore-table</td>
-<td style="text-align:center">忽略导出指定表。指定忽略多个表时，需要重复多次，每次一个表，每个表必须同时指定数据库和表</td>
-</tr>
-<tr>
-<td style="text-align:center">–lock-tables, -l</td>
-<td style="text-align:center">开始导出前，锁定所有表</td>
-</tr>
-<tr>
-<td style="text-align:center">–all-databases , -A</td>
-<td style="text-align:center">导出全部数据库    </td>
-</tr>
-<tr>
-<td style="text-align:center">–all-tablespaces , -Y</td>
-<td style="text-align:center">导出全部表空间   </td>
-</tr>
-<tr>
-<td style="text-align:center">–no-tablespaces , -y</td>
-<td style="text-align:center">不导出任何表空间</td>
-</tr>
-<tr>
-<td style="text-align:center">–add-drop-database</td>
-<td style="text-align:center">数据库创建之前 添加drop数据库的语句</td>
-</tr>
-<tr>
-<td style="text-align:center">–add-drop-table</td>
-<td style="text-align:center">数据表创建之前 添加drop数据表的语句（可使用–skip-add-drop-table取消该选项）</td>
-</tr>
-<tr>
-<td style="text-align:center">–add-locks</td>
-<td style="text-align:center">在每个表导出之前增加LOCK TABLES并且之后UNLOCK TABLE。默认为打开状态，使用–skip-add-locks取消选项</td>
-</tr>
-<tr>
-<td style="text-align:center">–lock-all-tables, -x</td>
-<td style="text-align:center">提交请求锁定所有数据库中的所有表，以保证数据的一致性。这是一个全局读锁，并且自动关闭</td>
-</tr>
-<tr>
-<td style="text-align:center">–comments</td>
-<td style="text-align:center">附加注释信息，可以用–skip-comments取消</td>
-</tr>
-<tr>
-<td style="text-align:center">–compact</td>
-<td style="text-align:center">导出更少的输出信息(用于调试)。去掉注释和头尾等结构</td>
-</tr>
-<tr>
-<td style="text-align:center">–complete-insert, -c</td>
-<td style="text-align:center">使用完整的insert语句(包含列名称)。这么做能提高插入效率，但是可能会受到max_allowed_packet参数的影响而导致插入失败</td>
-</tr>
-<tr>
-<td style="text-align:center">–compress, -C</td>
-<td style="text-align:center">在客户端和服务器之间启用压缩传递所有信息</td>
-</tr>
-<tr>
-<td style="text-align:center">–delayed-insert</td>
-<td style="text-align:center">采用延时插入方式导出数据</td>
-</tr>
-</tbody>
-</table>
-<hr>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2050,7 +1927,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
